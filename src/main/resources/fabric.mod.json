@@ -5,14 +5,14 @@
   "name": "Example Mod",
   "description": "Lorum ipsum nadara un petit mozrango.",
   "authors": [
-    "You!"
+    "IMB11"
   ],
-  "license": "MIT",
+  "license": "ARR",
   "icon": "assets/example/icon.png",
   "contact": {
-    "homepage": "https://your.site/",
-    "sources": "https://github.com/your/repo",
-    "issues": "https://github.com/your/repo"
+    "homepage": "https://imb11.dev/",
+    "sources": "https://github.com/IMB11/repo",
+    "issues": "https://github.com/IMB11/repo"
   },
   "environment": "*",
   "accessWidener" : "example.accesswidener",
