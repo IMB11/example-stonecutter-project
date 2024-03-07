@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.4-SNAPSHOT'
+    id "architectury-plugin" version "3.4-SNAPSHOT"
     id 'maven-publish'
 }
 
@@ -13,9 +13,45 @@ base {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        url "https://jitpack.io"
+    }
+    maven {
+        url "https://maven.terraformersmc.com/releases/"
+    }
+    maven {
+        url "https://maven.isxander.dev/releases"
+    }
+    maven {
+        url "https://maven.shedaniel.me/"
+    }
+    maven {
+        url "https://maven.quiltmc.org/repository/release/"
+    }
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+    maven {
+        url "https://maven.kikugie.dev/releases"
+    }
+    maven {
+        url "https://maven.neoforged.net/releases/"
+    }
 }
 
+var loader = loom.platform.get().name.lowercase()
+
 dependencies {
+    minecraft("com.mojang:minecraft:${stonecutter.current.version}")
+    mappings(loom.officialMojangMappings())
+    if (loader == "fabric") {
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+        modImplementation "net.fabricmc:fabric-loader:${property("deps.fabric_loader")}"
+        modImplementation "com.terraformersmc:modmenu:${property("deps.modmenu")}"
+    } else {
+        "neoForge"("net.neoforged:neoforge:${property("deps.fml")}")
+    }
+
     minecraft "com.mojang:minecraft:${stonecutter.current.version}"
     mappings "net.fabricmc:yarn:${property('deps.yarn')}:v2"
 
@@ -31,6 +67,14 @@ if (stonecutter.current.active) { // run configs for non-active version would be
         }
     }
 }
+
+def isForge = loom.isForgeLike
+stonecutter.expression(it -> {
+    // expressions have to return boolean result if it matches, and null otherwise
+    if (it == "fabric") return !isForge
+    if (it == "neoforge") return isForge
+    return null
+})
 
 //loom {
 //    accessWidenerPath = file("../../src/main/resources/<MOD_ID>.accesswidener")
