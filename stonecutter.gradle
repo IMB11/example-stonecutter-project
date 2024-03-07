@@ -1,5 +1,5 @@
 plugins {
     id("dev.kikugie.stonecutter")
-    id("dev.architectury.loom") version "1.4-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
 }
-stonecutter.active "1.20.1-fabric" /* [SC] DO NOT EDIT */
+stonecutter.active "1.20.1-neoforge" /* [SC] DO NOT EDIT */

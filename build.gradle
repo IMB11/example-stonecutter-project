@@ -35,28 +35,21 @@ repositories {
         url "https://maven.kikugie.dev/releases"
     }
     maven {
-        url "https://maven.neoforged.net/releases/"
+        url "https://maven.neoforged.net/releases"
     }
 }
 
-var loader = loom.platform.get().name.lowercase()
-
+def isForge = loom.isForgeLike()
 dependencies {
     minecraft("com.mojang:minecraft:${stonecutter.current.version}")
     mappings(loom.officialMojangMappings())
-    if (loader == "fabric") {
-        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    if (!isForge) {
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${property("deps.fapi")}"
         modImplementation "net.fabricmc:fabric-loader:${property("deps.fabric_loader")}"
         modImplementation "com.terraformersmc:modmenu:${property("deps.modmenu")}"
     } else {
-        "neoForge"("net.neoforged:neoforge:${property("deps.fml")}")
+        "neoForge"("net.neoforged:forge:${property("deps.fml")}")
     }
-
-    minecraft "com.mojang:minecraft:${stonecutter.current.version}"
-    mappings "net.fabricmc:yarn:${property('deps.yarn')}:v2"
-
-    modImplementation "net.fabricmc:fabric-loader:${property('deps.fabric_loader')}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${property('deps.fabric_api')}"
 }
 
 if (stonecutter.current.active) { // run configs for non-active version would be invalid
@@ -68,7 +61,6 @@ if (stonecutter.current.active) { // run configs for non-active version would be
     }
 }
 
-def isForge = loom.isForgeLike
 stonecutter.expression(it -> {
     // expressions have to return boolean result if it matches, and null otherwise
     if (it == "fabric") return !isForge

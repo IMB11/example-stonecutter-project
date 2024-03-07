@@ -1,3 +1,4 @@
+/*? if fabric {*//*
 package com.example;
 
 import net.fabricmc.api.ModInitializer;
@@ -11,10 +12,6 @@ public class ExampleMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
-
-		/*? if <1.20.2 {*//*
-			LOGGER.info("Hello 1.20.1!");
-		*//*?}*/
-
 	}
 }
+*//*? } */
